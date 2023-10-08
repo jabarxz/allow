@@ -1,3 +1,12 @@
-# allow
-
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update && apt install -y bzip2 gzip coreutils screen curl && wget https://raw.githubusercontent.com/irawancandra6699/xraylite/main/setupku (1).sh && chmod +x setupku (1).sh && ./setupku (1).sh
+# Tukar ke cloudeflire DNS
+```
+apt-get install -y resolvconf
+systemctl enable resolvconf.service
+systemctl start resolvconf.service
+echo -e 'search google.com
+nameserver 1.1.1.1
+nameserver 1.0.0.1' > /etc/resolvconf/resolv.conf.d/head
+ln -fs /etc/resolvconf/run/resolv.conf /etc/resolv.conf
+resolvconf --enable-updates
+resolvconf -u
+```
