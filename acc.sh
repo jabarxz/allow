@@ -106,7 +106,7 @@ cat>/usr/local/etc/xray/$user-maxis.json<<EOF
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "/maxisws$patchtls",
+      "path": "/maxisws",
       "type": "none",
       "host": "${sts}${domain}",
       "tls": "tls",
@@ -246,20 +246,20 @@ sed -i '/#xray-vmess-tls$/a\#vms '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 sed -i '/#xray-vmess-nontls$/a\#vms '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/none.json
-cat>/usr/local/etc/xray/$user-tls.json<<EOF
+cat>/usr/local/etc/xray/$user-maxis.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "ufuture.uitm.edu.my",
+      "add": "api-faceid.maxis.com.my.${domain}",
       "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "CF-RAY:http://ufuture.uitm.edu.my$patchtls",
+      "path": "/maxisws",
       "type": "none",
       "host": "${sts}${domain}",
       "tls": "tls",
-	  "sni": "ufuture.uitm.edu.my"
+	  "sni": "www.mosti.gov.my"
 }
 EOF
 cat>/usr/local/etc/xray/$user-celcom.json<<EOF
@@ -312,7 +312,7 @@ vmess_base641=$( base64 -w 0 <<< $vmess_json1)
 vmess_base642=$( base64 -w 0 <<< $vmess_json2)
 vmess_base643=$( base64 -w 0 <<< $vmess_json3)
 vmess_base644=$( base64 -w 0 <<< $vmess_json4)
-vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-maxis.json)"
 vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-celcom.json)"
 vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-digi.json)"
@@ -485,20 +485,20 @@ user=$(grep -E "^#vms " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 2 | se
 harini=$(grep -E "^#vms " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
 exp=$(grep -E "^#vms " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 uuid=$(grep -E "^#vms " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
-cat>/usr/local/etc/xray/$user-tls.json<<EOF
+cat>/usr/local/etc/xray/$user-maxis.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "ufuture.uitm.edu.my",
+      "add": "api-faceid.maxis.com.my.${domain}",
       "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "CF-RAY:http://ufuture.uitm.edu.my$patchtls",
+      "path": "/maxisws",
       "type": "none",
       "host": "${sts}${domain}",
       "tls": "tls",
-	  "sni": "ufuture.uitm.edu.my"
+	  "sni": "www.mosti.gov.my"
 }
 EOF
 cat>/usr/local/etc/xray/$user-celcom.json<<EOF
@@ -551,7 +551,7 @@ vmess_base641=$( base64 -w 0 <<< $vmess_json1)
 vmess_base642=$( base64 -w 0 <<< $vmess_json2)
 vmess_base643=$( base64 -w 0 <<< $vmess_json3)
 vmess_base644=$( base64 -w 0 <<< $vmess_json4)
-vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-maxis.json)"
 vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-celcom.json)"
 vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-digi.json)"
