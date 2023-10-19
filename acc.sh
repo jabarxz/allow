@@ -50,6 +50,8 @@ total1=$(grep -c -E "^#vms " "/usr/local/etc/xray/config.json")
 total2=$(grep -c -E "^#vls " "/usr/local/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS TCP XTLS
 total3=$(grep -c -E "^#vxtls " "/usr/local/etc/xray/config.json")
+# TOTAL ACC CREATE  TROJAN WS TLS
+total4=$(grep -c -E "^#trws " "/usr/local/etc/xray/trojan.json")
 MYIP=$(wget -qO- ifconfig.me/ip);
 source /var/lib/premium-script/ipvps.conf
 if [[ "$IP" = "" ]]; then
@@ -95,20 +97,20 @@ sed -i '/#xray-vmess-tls$/a\#vms '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 sed -i '/#xray-vmess-nontls$/a\#vms '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/none.json
-cat>/usr/local/etc/xray/$user-tls.json<<EOF
+cat>/usr/local/etc/xray/$user-maxis.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "ufuture.uitm.edu.my",
+      "add": "api-faceid.maxis.com.my.${domain}",
       "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "CF-RAY:http://ufuture.uitm.edu.my$patchtls",
+      "path": "/maxisws$patchtls",
       "type": "none",
       "host": "${sts}${domain}",
       "tls": "tls",
-	  "sni": "ufuture.uitm.edu.my"
+	  "sni": "www.mosti.gov.my"
 }
 EOF
 cat>/usr/local/etc/xray/$user-celcom.json<<EOF
