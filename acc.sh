@@ -1518,7 +1518,220 @@ fi
 rm -rf /tmp/ipxray.txt
 done
 }
-# MENU XRAY VMESS & VLESS
+# FUCTION CREATE USER TROJAN
+function menu19 () {
+clear
+trnone="$(cat ~/log-install.txt | grep -w "Xray Trojan Ws None Tls" | cut -d: -f2|sed 's/ //g')"
+trws="$(cat ~/log-install.txt | grep -w "Xray Trojan Ws Tls" | cut -d: -f2|sed 's/ //g')"
+echo -e   "  \e[$line═══════════════════════════════════════════════════════\e[m"
+echo -e   "  \e[$back_text          \e[30m[\e[$box CREATE USER XRAY TROJAN WS TLS\e[30m ]\e[1m          \e[m"
+echo -e   "  \e[$line═══════════════════════════════════════════════════════\e[m"
+until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${user_EXISTS} == '0' ]]; do
+		read -rp "   Password: " -e user
+		user_EXISTS=$(grep -w $user /usr/local/etc/xray/trojan.json | wc -l)
+
+		if [[ ${user_EXISTS} == '1' ]]; then
+			echo ""
+			echo "A client with the specified name was already created, please choose another name."
+			exit 1
+		fi
+	done
+patchtls=/nevermore-trojanwstls
+patchnone=/nevermore-trojanwsntls
+read -p "   Bug Address (Example: www.google.com) : " address
+read -p "   Bug SNI (Example : m.facebook.com) : " sni
+read -p "   Expired (days) : " masaaktif
+bug_addr=${address}.
+bug_addr2=$address
+if [[ $address == "" ]]; then
+sts=$bug_addr2
+else
+sts=$bug_addr
+fi
+harini=`date -d "0 days" +"%Y-%m-%d"`
+exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
+sed -i '/#xray-trojan-tls$/a\#trws '"$user $exp $harini $uuid"'\
+},{"id": "'""$uuid""'","password": "'""$user""'","email": "'""$user""'"' /usr/local/etc/xray/trojan.json
+sed -i '/#xray-trojan-nontls$/a\#trws '"$user $exp $harini $uuid"'\
+},{"id": "'""$uuid""'","password": "'""$user""'","email": "'""$user""'"' /usr/local/etc/xray/trojannone.json
+systemctl restart xray@trojan
+systemctl restart xray@trojannone
+trojanlink1="trojan://${user}@ufuture.uitm.edu.my:443?path=CF-RAY:http://ufuture.uitm.edu.my$patchtls&security=tls&host=${sts}${domain}&type=ws&sni=ufuture.uitm.edu.my#${user}"
+trojanlink2="trojan://${user}@onlinepayment.celcom.com.my:443?path=CF-RAY:http://onlinepayment.celcom.com.my$patchtls&security=tls&host=${sts}${domain}&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+trojanlink3="trojan://${user}@www.who.int:80?path=CF-RAY:http://www.who.int$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+trojanlink4="trojan://${user}@api.useinsider.com:80?path=$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+trojanlink3="trojan://${user}@www.who.int:80?path=CF-RAY:http://www.who.int$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+trojanlink4="trojan://${user}@api.useinsider.com:80?path=$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+clear
+echo -e ""
+echo -e "\e[$line════════[XRAY TROJAN WS TLS]════════\e[m"
+echo -e "Remarks        : ${user}"
+echo -e "Domain         : ${domain}"
+echo -e "IP/Host        : ${MYIP}"
+echo -e "Port Tls       : ${trws}"
+echo -e "Port None TLS  : ${trnone}"
+echo -e "Key            : ${user}"
+echo -e "Security       : Auto"
+echo -e "Network        : Websocket"
+echo -e "Path Tls       : $patchtls"
+echo -e "Path None Tls  : $patchnone"
+echo -e "allowInsecure  : True/allow"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Script By $creditt"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Maxis)    : ${trojanlink1}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Celcom)   : ${trojanlink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Yes)      : ${trojanlink3}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Digi)     : ${trojanlink4}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Created   :$harini"
+echo -e "Expired   :$exp"
+echo ""
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu"
+xraay
+}
+# FUCTION TRIAL USER TROJAN
+function menu20 () {
+clear
+trnone="$(cat ~/log-install.txt | grep -w "Xray Trojan Ws None Tls" | cut -d: -f2|sed 's/ //g')"
+trws="$(cat ~/log-install.txt | grep -w "Xray Trojan Ws Tls" | cut -d: -f2|sed 's/ //g')"
+echo -e   "  \e[$line═══════════════════════════════════════════════════════\e[m"
+echo -e   "  \e[$back_text          \e[30m[\e[$box TRIAL USER XRAY TROJAN WS TLS\e[30m ]\e[1m           \e[m"
+echo -e   "  \e[$line═══════════════════════════════════════════════════════\e[m"
+# Create Expried 
+masaaktif="1"
+exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
+
+# Make Random Username 
+user=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+
+patchtls=/nevermore-trojanwstls
+patchnone=/nevermore-trojanwsntls
+read -p "   Bug Address (Example: www.google.com) : " address
+read -p "   Bug SNI (Example : m.facebook.com) : " sni
+bug_addr=${address}.
+bug_addr2=$address
+if [[ $address == "" ]]; then
+sts=$bug_addr2
+else
+sts=$bug_addr
+fi
+harini=`date -d "0 days" +"%Y-%m-%d"`
+sed -i '/#xray-trojan-tls$/a\#trws '"$user $exp $harini $uuid"'\
+},{"id": "'""$uuid""'","password": "'""$user""'","email": "'""$user""'"' /usr/local/etc/xray/trojan.json
+sed -i '/#xray-trojan-nontls$/a\#trws '"$user $exp $harini $uuid"'\
+},{"id": "'""$uuid""'","password": "'""$user""'","email": "'""$user""'"' /usr/local/etc/xray/trojannone.json
+systemctl restart xray@trojan
+systemctl restart xray@trojannone
+trojanlink1="trojan://${user}@ufuture.uitm.edu.my:443?path=CF-RAY:http://ufuture.uitm.edu.my$patchtls&security=tls&host=${sts}${domain}&type=ws&sni=ufuture.uitm.edu.my#${user}"
+trojanlink2="trojan://${user}@onlinepayment.celcom.com.my:443?path=CF-RAY:http://onlinepayment.celcom.com.my$patchtls&security=tls&host=${sts}${domain}&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+trojanlink3="trojan://${user}@www.who.int:80?path=CF-RAY:http://www.who.int$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+trojanlink4="trojan://${user}@api.useinsider.com:80?path=$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+clear
+echo -e ""
+echo -e "\e[$line═════[TRIAL XRAY TROJAN WS TLS]═════\e[m"
+echo -e "Remarks        : ${user}"
+echo -e "Domain         : ${domain}"
+echo -e "IP/Host        : ${MYIP}"
+echo -e "Port Tls       : ${trws}"
+echo -e "Port None TLS  : ${trnone}"
+echo -e "Key            : ${user}"
+echo -e "Security       : Auto"
+echo -e "Network        : Websocket"
+echo -e "Path Tls       : $patchtls"
+echo -e "Path None Tls  : $patchnone"
+echo -e "allowInsecure  : True/allow"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Script By $creditt"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Maxis)    : ${trojanlink1}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Celcom)   : ${trojanlink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Yes)      : ${trojanlink3}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Digi)     : ${trojanlink4}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Created   :$harini"
+echo -e "Expired   :$exp"
+echo ""
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu"
+xraay
+}
+function menu21 () {
+trnone="$(cat ~/log-install.txt | grep -w "Xray Trojan Ws None Tls" | cut -d: -f2|sed 's/ //g')"
+trws="$(cat ~/log-install.txt | grep -w "Xray Trojan Ws Tls" | cut -d: -f2|sed 's/ //g')"
+clear
+NUMBER_OF_CLIENTS=$(grep -c -E "^#trws " "/usr/local/etc/xray/trojan.json")
+	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
+		clear
+		echo ""
+		echo "You have no existing clients!"
+		exit 1
+	fi
+
+	clear
+	echo ""
+	echo "SHOW USER XRAY TROJAN WS TLS"
+	echo "Select the existing client you want to renew"
+	echo " Press CTRL+C to return"
+	echo -e "==============================="
+	grep -E "^#trws " "/usr/local/etc/xray/trojan.json" | cut -d ' ' -f 2-3 | nl -s ') '
+	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
+		if [[ ${CLIENT_NUMBER} == '1' ]]; then
+			read -rp "Select one client [1]: " CLIENT_NUMBER
+		else
+			read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
+		fi
+	done
+patchtls=/nevermore-trojanwstls
+patchnone=/nevermore-trojanwsntls
+user=$(grep -E "^#trws " "/usr/local/etc/xray/trojan.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+harini=$(grep -E "^#trws " "/usr/local/etc/xray/trojan.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^#trws " "/usr/local/etc/xray/trojan.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+uuid=$(grep -E "^#trws " "/usr/local/etc/xray/trojan.json" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
+trojanlink1="trojan://${user}@ufuture.uitm.edu.my:443?path=CF-RAY:http://ufuture.uitm.edu.my$patchtls&security=tls&host=${sts}${domain}&type=ws&sni=ufuture.uitm.edu.my#${user}"
+trojanlink2="trojan://${user}@onlinepayment.celcom.com.my:443?path=CF-RAY:http://onlinepayment.celcom.com.my$patchtls&security=tls&host=${sts}${domain}&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+trojanlink3="trojan://${user}@www.who.int:80?path=CF-RAY:http://www.who.int$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+trojanlink4="trojan://${user}@api.useinsider.com:80?path=$patchnone&security=none&host=${sts}${domain}&type=ws#${user}"
+clear
+echo -e ""
+echo -e "\e[$line════════[XRAY TROJAN WS TLS]════════\e[m"
+echo -e "Remarks        : ${user}"
+echo -e "Domain         : ${domain}"
+echo -e "IP/Host        : ${MYIP}"
+echo -e "Port Tls       : ${trws}"
+echo -e "Port None TLS  : ${trnone}"
+echo -e "Key            : ${user}"
+echo -e "Security       : Auto"
+echo -e "Network        : Websocket"
+echo -e "Path Tls       : $patchtls"
+echo -e "Path None Tls  : $patchnone"
+echo -e "allowInsecure  : True/allow"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Script By $creditt"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Maxis)    : ${trojanlink1}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Celcom)   : ${trojanlink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Yes)      : ${trojanlink3}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (Digi)     : ${trojanlink4}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Created   :$harini"
+echo -e "Expired   :$exp"
+echo ""
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu"
+xraay
+}
+# MENU XRAY VMESS VLESS TROJAN MAXIS DIGI YES CELCOM
 clear
 echo -e ""
 echo -e "   \e[$line══════════════════════════════════════════\e[m"
@@ -1554,9 +1767,17 @@ echo -e "    \e[$number (17)\e[m \e[$below 🎞️Show Config Vless Xtls Account
 echo -e "    \e[$number (18)\e[m \e[$below 🖥️Check User Login Vless Xtls\e[m"
 echo -e ""
 echo -e "   \e[$number    >> Total :\e[m \e[$below ${total3} Client\e[m"
-echo -e "   \e[$line══════════════════════════════════════════\e[m"
-echo -e "   \e[$back_text  \e[$box x)   MENU                              \e[m"
-echo -e "   \e[$line══════════════════════════════════════════\e[m"
+echo -e "   \e[$line ══════════════════════════════════════════\e[m"
+echo -e "    \e[$back_text       \e[30m[\e[$box TROJAN MAXIS & DIGI CELCOM\e ]\e[30m      \e[m"
+echo -e "   \e[$line ══════════════════════════════════════════\e[m"
+echo -e "    \e[$number (19)\e[m \e[$below XRAY TROJAN MAXIS DIGI CELCOM YES UMOBILE\e[m"
+echo -e "    \e[$number (20)\e[m \e[$below XRAY TROJAN TRIAL MAXIS DIGI CELCOM YES UMOBILE\e[m"
+echo -e "    \e[$number (21)\e[m \e[$below XRAY TROJAN CONFIQ VLESS MAXIS DIGI CELCOM YES UMOBILE\e[m"
+echo -e ""
+echo -e "   \e[$number    >> Total :\e[m \e[$below ${total4} Client\e[m"
+echo -e "   \e[$line ══════════════════════════════════════════\e[m"
+echo -e "    \e[$back_text  \e[$box x)   MENU                              \e[m"
+echo -e "   \e[$line ══════════════════════════════════════════\e[m"
 echo -e "\e[$line"
 read -rp "        Please Input Number  [1-18 or x] :  "  num
 echo -e ""
@@ -1596,6 +1817,12 @@ elif [[ "$num" = "17" ]]; then
 menu17
 elif [[ "$num" = "18" ]]; then
 menu18
+elif [[ "$num" = "19" ]]; then
+menu19
+elif [[ "$num" = "20" ]]; then
+menu20
+elif [[ "$num" = "21" ]]; then
+menu21
 elif [[ "$num" = "x" ]]; then
 menu
 else
