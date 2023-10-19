@@ -10,7 +10,7 @@ ln -fs /etc/resolvconf/run/resolv.conf /etc/resolv.conf
 resolvconf --enable-updates
 resolvconf -u
 ```
-#✔️ SCRIPT INSTALL ACC VLESS✔️
+# ✔️ SCRIPT INSTALL ACC VLESS✔️
 ```
 wget -q -O /usr/bin/vpn "https://raw.githubusercontent.com/jabarxz/allow/main/acc.sh" && chmod +x /usr/bin/vpn && apt install make && apt install gcc && apt install shc
 ```
