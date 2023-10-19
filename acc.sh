@@ -109,7 +109,7 @@ vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&
 vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
 vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
 vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
-vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host={domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
+vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 systemctl restart xray
 systemctl restart xray@none
 clear
@@ -204,7 +204,7 @@ echo     " ${vlesslink15}"
 echo -e "\e[$line════════════════════════\e[m"
 echo -e "Created   : $harini"
 echo -e "Expired   : $exp"
-echo -e "Script By AZIZIANGAH✅"
+echo -e "Script By AZIZIANGAH"
 }
 # TRIAL USER VLESS WS
 function menu8 () {
@@ -252,12 +252,11 @@ vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&
 vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
 vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
 vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
-vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host={domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
+vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 systemctl restart xray
 systemctl restart xray@none
 clear
 echo -e ""
-echo -e "\e[$line═════════[VLESS WS TRICK]═════════\e[m"
 echo -e "☑️Remarks          : ${user}"
 echo -e "☑️Created          : $harini"
 echo -e "☑️Expired           : $exp"
@@ -347,7 +346,7 @@ echo     " ${vlesslink15}"
 echo -e "\e[$line════════════════════════\e[m"
 echo -e "Created   : $harini"
 echo -e "Expired   : $exp"
-echo -e "Script By AZIZIANGAH✅"
+echo -e "Script By JIEVPN"
 }
 # DELETE USER VLESS WS
 function menu9 () {
@@ -481,10 +480,10 @@ vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&
 vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
 vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
 vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
-vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host={domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
+vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 clear
 echo -e ""
-echo -e "\e[$line═════════[VLESS WS TRICK]═════════\e[m"
+echo -e "\e[$line═════════[XRAY VLESS WS]═════════\e[m"
 echo -e "☑️Remarks          : ${user}"
 echo -e "☑️Created          : $harini"
 echo -e "☑️Expired           : $exp"
@@ -574,7 +573,7 @@ echo     " ${vlesslink15}"
 echo -e "\e[$line════════════════════════\e[m"
 echo -e "Created   : $harini"
 echo -e "Expired   : $exp"
-echo -e "Script By AZIZIANGAH✅"
+echo -e "Script By JIEVPN"
 }
 # USER LOGIN VLESS WS
 function menu12 () {
@@ -649,6 +648,7 @@ sed -i '/#xray-vless-xtls$/a\#vxtls '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","flow": "'""xtls-rprx-direct""'","level": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 vlesslink1="vless://${uuid}@m.pokemon.com.${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=m.pokemon.com#${user}"
 vlesslink2="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=maingame.com.my#${user}"
+vlesslink3="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=www.mosti.gov.my#${user}"
 systemctl restart xray
 clear
 echo -e ""
@@ -662,6 +662,8 @@ echo -e "Encryption     : None"
 echo -e "Network        : TCP"
 echo -e "Flow           : Direct & Splice"
 echo -e "AllowInsecure  : True"
+echo -e "Created  : $harini"
+echo -e "Expired  : $exp"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Pantang Larang $creditt Shop"
 echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
@@ -678,6 +680,9 @@ echo -e "\e[$line═════════════════════
 echo -e "LINK DIGI POKEMON TCP =   : ${vlesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "LINK UMOBILE TCP =   : ${vlesslink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "LINK MAXIS TCP =   : ${vlesslink3}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Created  : $harini"
 echo -e "Expired  : $exp"
@@ -712,6 +717,7 @@ sed -i '/#xray-vless-xtls$/a\#vxtls '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","flow": "'""xtls-rprx-direct""'","level": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 vlesslink1="vless://${uuid}@m.pokemon.com.${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=m.pokemon.com#${user}"
 vlesslink2="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=maingame.com.my#${user}"
+vlesslink3="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=www.mosti.gov.my#${user}"
 systemctl restart xray
 clear
 echo -e ""
@@ -725,6 +731,8 @@ echo -e "Encryption     : None"
 echo -e "Network        : TCP"
 echo -e "Flow           : Direct & Splice"
 echo -e "AllowInsecure  : True"
+echo -e "Created  : $harini"
+echo -e "Expired  : $exp"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Pantang Larang $creditt Shop"
 echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
@@ -741,6 +749,9 @@ echo -e "\e[$line═════════════════════
 echo -e "LINK DIGI POKEMON TCP =   : ${vlesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "LINK UMOBILE TCP =   : ${vlesslink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "LINK MAXIS TCP =   : ${vlesslink3}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Created  : $harini"
 echo -e "Expired  : $exp"
@@ -862,6 +873,7 @@ exp=$(grep -E "^#vxtls " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 3 | s
 uuid=$(grep -E "^#vxtls " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
 vlesslink1="vless://${uuid}@m.pokemon.com.${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=m.pokemon.com#${user}"
 vlesslink2="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=maingame.com.my#${user}"
+vlesslink3="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=www.mosti.gov.my#${user}"
 clear
 echo -e ""
 echo -e "\e[$line════════[XRAY VLESS XTLS]════════\e[m"
@@ -874,6 +886,8 @@ echo -e "Encryption       : None"
 echo -e "Network          : TCP"
 echo -e "Flow             : Direct & Splice"
 echo -e "AllowInsecure    : True"
+echo -e "Created  : $harini"
+echo -e "Expired  : $exp"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Pantang Larang $creditt Shop"
 echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
@@ -890,6 +904,8 @@ echo -e "\e[$line═════════════════════
 echo -e "LINK DIGI POKEMON TCP =   : ${vlesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "LINK UMOBILE TCP =   : ${vlesslink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "LINK MAXIS TCP =   : ${vlesslink3}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Created    : $harini"
 echo -e "Expired    : $exp"
