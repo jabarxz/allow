@@ -1,9 +1,7 @@
 #wget https://github.com/${GitUser}/
 GitUser="jabarxz"
-
 # // IZIN SCRIPT
 export MYIP=$(curl -sS ipv4.icanhazip.com)
-
 # Valid Script
 VALIDITY () {
     clear
