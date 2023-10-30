@@ -126,7 +126,7 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
 	  "sni": "ufuture.uitm.edu.my"
 }
 EOF
-cat>/usr/local/etc/xray/$user-none.json<<EOF
+cat>/usr/local/etc/xray/$user-tls.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
@@ -177,9 +177,9 @@ vmess_base642=$( base64 -w 0 <<< $vmess_json2)
 vmess_base643=$( base64 -w 0 <<< $vmess_json3)
 vmess_base644=$( base64 -w 0 <<< $vmess_json4)
 vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
-vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-celcom.json)"
+vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
 vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
-vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-digi.json)"
+vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 systemctl restart xray@vmess
 systemctl restart xray@vmessnone
 service cron restart
@@ -285,7 +285,7 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
 	  "sni": "ufuture.uitm.edu.my"
 }
 EOF
-cat>/usr/local/etc/xray/$user-none.json<<EOF
+cat>/usr/local/etc/xray/$user-tls.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
@@ -336,9 +336,9 @@ vmess_base642=$( base64 -w 0 <<< $vmess_json2)
 vmess_base643=$( base64 -w 0 <<< $vmess_json3)
 vmess_base644=$( base64 -w 0 <<< $vmess_json4)
 vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
-vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-celcom.json)"
+vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
 vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
-vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-digi.json)"
+vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 systemctl restart xray@vmess
 systemctl restart xray@vmessnone
 service cron restart
@@ -545,7 +545,7 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
 	  "sni": "ufuture.uitm.edu.my"
 }
 EOF
-cat>/usr/local/etc/xray/$user-none.json<<EOF
+cat>/usr/local/etc/xray/$user-tls.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
@@ -596,9 +596,9 @@ vmess_base642=$( base64 -w 0 <<< $vmess_json2)
 vmess_base643=$( base64 -w 0 <<< $vmess_json3)
 vmess_base644=$( base64 -w 0 <<< $vmess_json4)
 vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
-vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-celcom.json)"
-vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
-vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-digi.json)"
+vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls)"
+vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json
+vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"user-none.json
 systemctl restart xray@vmess
 systemctl restart xray@vmessnone
 service cron restart
