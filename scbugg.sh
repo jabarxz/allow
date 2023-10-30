@@ -86,8 +86,8 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 			exit 1
 		fi
 	done
-export patchtls=/jievpn-vmesswstls
-export patchnontls=/jievpn-vmesswsntls
+export patchtls=/nevermore-vmesswstls
+export patchnontls=/nevermore-vmesswsntls
 export uuid=$(cat /proc/sys/kernel/random/uuid)
 
 read -p "   Bug Address (Example: www.google.com) : " address
@@ -114,30 +114,61 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "${sts}${domain}",
+      "add": "ufuture.uitm.edu.my",
       "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "$patchtls",
       "type": "none",
-      "host": "$sni",
+      "host": "${sts}${domain}",
       "tls": "tls",
-	  "sni": "$sni"
+	  "sni": "ufuture.uitm.edu.my"
+}
+EOF
+cat>/usr/local/etc/xray/$user-tls.json<<EOF
+      {
+      "v": "2",
+      "ps": "${user}",
+      "add": "onlinepayment.celcom.com.my",
+      "port": "${tls}",
+      "id": "${uuid}",
+      "aid": "0",
+      "net": "ws",
+      "path": "onlinepayment.celcom.com.my$patchtls",
+      "type": "none",
+      "host": "${sts}${domain}",
+      "tls": "tls",
+	  "sni": "onlinepayment.celcom.com.my"
 }
 EOF
 cat>/usr/local/etc/xray/$user-none.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "${sts}${domain}",
+      "add": "api.useinsider.com",
       "port": "${none}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "$patchnontls",
       "type": "none",
-      "host": "$sni",
+      "host": "${sts}${domain}",
+      "tls": "none"
+}
+EOF
+cat>/usr/local/etc/xray/$user-none.json<<EOF
+      {
+      "v": "2",
+      "ps": "${user}",
+      "add": "eurohealthobservatory.who.int",
+      "port": "${none}",
+      "id": "${uuid}",
+      "aid": "0",
+      "net": "ws",
+      "path": "$patchnontls",
+      "type": "none",
+      "host": "${sts}${domain}",
       "tls": "none"
 }
 EOF
@@ -234,8 +265,12 @@ cp /usr/local/etc/xray/$user-clash-for-android.yaml /home/vps/public_html/$user-
 
 export vmess_base641=$( base64 -w 0 <<< $vmess_json1)
 export vmess_base642=$( base64 -w 0 <<< $vmess_json2)
-export vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
-export vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
+export vmess_base643=$( base64 -w 0 <<< $vmess_json3)
+export vmess_base644=$( base64 -w 0 <<< $vmess_json4)
+export export vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+export export vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+export export vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
+export export vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 
 systemctl restart xray@vmess
 systemctl restart xray@vmessnone
@@ -243,32 +278,47 @@ service cron restart
 
 clear
 echo -e ""
+echo -e "\e[$line═════════[XRAY VMESS WS]═════════\e[m"
+echo -e "☢️Remarks        : ${user}"
+echo -e "☢️Created         : $harini"
+echo -e "☢️Expired         : $exp"
+echo -e "☢️Domain         : ${domain}"
+echo -e "☢️IP/Host        : $MYIP"
+echo -e "☢️Port TLS       : ${tls}"
+echo -e "☢️Port None TLS  : ${none}"
+echo -e "☢️User ID        : ${uuid}"
+echo -e "☢️Security       : Auto"
+echo -e "☢️Network        : Websocket"
+echo -e "☢️Path Tls       : $patchtls"
+echo -e "☢️Path None Tls  : $patchnontls"
+echo -e "☢️AllowInsecure  : True/Allow"
+echo -e "☢️Support Yaml   : YES"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "\e[$back_text      \e[30m[\e[$box XRAY VMESS WS\e[30m ]\e[1m          \e[m"
+echo -e "Pantang Larang $creditt Shop"
+echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
+echo -e "\e[31m❌ Torrent (p2p, streaming p2p)"
+echo -e "\e[31m❌ PS4"
+echo -e "\e[31m❌ Porn"
+echo -e "\e[31m❌ Spam Bug"
+echo -e "\e[31m❌ Ddos Server"
+echo -e "\e[31m❌ Mining Bitcoins"
+echo -e "\e[31m❌ Abuse Usage"
+echo -e "\e[31m❌ Multi-Login ID"
+echo -e "\e[31m❌ Sharing Premium Config\e[m"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Remarks        : ${user}"
-echo -e "Domain         : ${domain}"
-echo -e "IP/Host        : $MYIP"
-echo -e "Port TLS       : ${tls}"
-echo -e "Port None TLS  : ${none}"
-echo -e "User ID        : ${uuid}"
-echo -e "Security       : Auto"
-echo -e "Network        : Websocket"
-echo -e "Path Tls       : $patchtls"
-echo -e "Path None Tls  : $patchnontls"
-echo -e "allowInsecure  : True/allow"
-echo -e "Support Yaml   : YES"
+echo -e "Script By $export creditt"
 echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (MAXIS)   : ${export export vmesslink1}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (CELCOM)  : ${export export vmesslink2}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (DIGI)     : ${export export vmesslink3}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Link (YES)    : ${export export vmesslink4}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Created   :$harini"
+echo -e "Expired   :$exp"
 echo -e "Script By $creditt"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link TLS       : ${vmesslink1}"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link None TLS  : ${vmesslink2}"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Yaml  : http://$MYIP:81/$user-clash-for-android.yaml"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Created   : $harini"
-echo -e "Expired   : $exp"
 echo ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu xray"
@@ -290,8 +340,8 @@ export exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
 
 # // Make Random Username 
 export user=Trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
-export patchtls=/jievpn-vmesswstls
-export patchnontls=/jievpn-vmesswsntls
+export patchtls=/nevermore-vmesswstls
+export patchnontls=/nevermore-vmesswsntls
 export uuid=$(cat /proc/sys/kernel/random/uuid)
 
 read -p "   Bug Address (Example: www.google.com) : " address
@@ -316,30 +366,61 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "${sts}${domain}",
+      "add": "ufuture.uitm.edu.my",
       "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "$patchtls",
       "type": "none",
-      "host": "$sni",
+      "host": "${sts}${domain}",
       "tls": "tls",
-	  "sni": "$sni"
+	  "sni": "ufuture.uitm.edu.my"
+}
+EOF
+cat>/usr/local/etc/xray/$user-tls.json<<EOF
+      {
+      "v": "2",
+      "ps": "${user}",
+      "add": "onlinepayment.celcom.com.my",
+      "port": "${tls}",
+      "id": "${uuid}",
+      "aid": "0",
+      "net": "ws",
+      "path": "onlinepayment.celcom.com.my$patchtls",
+      "type": "none",
+      "host": "${sts}${domain}",
+      "tls": "tls",
+	  "sni": "onlinepayment.celcom.com.my"
 }
 EOF
 cat>/usr/local/etc/xray/$user-none.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "${sts}${domain}",
+      "add": "api.useinsider.com",
       "port": "${none}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "$patchnontls",
       "type": "none",
-      "host": "$sni",
+      "host": "${sts}${domain}",
+      "tls": "none"
+}
+EOF
+cat>/usr/local/etc/xray/$user-none.json<<EOF
+      {
+      "v": "2",
+      "ps": "${user}",
+      "add": "eurohealthobservatory.who.int",
+      "port": "${none}",
+      "id": "${uuid}",
+      "aid": "0",
+      "net": "ws",
+      "path": "$patchnontls",
+      "type": "none",
+      "host": "${sts}${domain}",
       "tls": "none"
 }
 EOF
@@ -436,8 +517,12 @@ cp /usr/local/etc/xray/$user-clash-for-android.yaml /home/vps/public_html/$user-
 
 export vmess_base641=$( base64 -w 0 <<< $vmess_json1)
 export vmess_base642=$( base64 -w 0 <<< $vmess_json2)
-export vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
-export vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
+export vmess_base643=$( base64 -w 0 <<< $vmess_json3)
+export vmess_base644=$( base64 -w 0 <<< $vmess_json4)
+export export vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+export export vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+export export vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
+export export vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 
 systemctl restart xray@vmess
 systemctl restart xray@vmessnone
@@ -445,32 +530,47 @@ service cron restart
 
 clear
 echo -e ""
+echo -e "\e[$line═════════[XRAY VMESS WS]═════════\e[m"
+echo -e "☢️Remarks        : ${user}"
+echo -e "☢️Created         : $harini"
+echo -e "☢️Expired         : $exp"
+echo -e "☢️Domain         : ${domain}"
+echo -e "☢️IP/Host        : $MYIP"
+echo -e "☢️Port TLS       : ${tls}"
+echo -e "☢️Port None TLS  : ${none}"
+echo -e "☢️User ID        : ${uuid}"
+echo -e "☢️Security       : Auto"
+echo -e "☢️Network        : Websocket"
+echo -e "☢️Path Tls       : $patchtls"
+echo -e "☢️Path None Tls  : $patchnontls"
+echo -e "☢️AllowInsecure  : True/Allow"
+echo -e "☢️Support Yaml   : YES"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "\e[$back_text     \e[30m[\e[$box TRIAL XRAY VMESS WS\e[30m ]\e[1m     \e[m"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Remarks        : ${user}"
-echo -e "Domain         : ${domain}"
-echo -e "IP/Host        : $MYIP"
-echo -e "Port TLS       : ${tls}"
-echo -e "Port None TLS  : ${none}"
-echo -e "User ID        : ${uuid}"
-echo -e "Security       : Auto"
-echo -e "Network        : Websocket"
-echo -e "Path Tls       : $patchtls"
-echo -e "Path None Tls  : $patchnontls"
-echo -e "allowInsecure  : True/allow"
-echo -e "Support Yaml   : YES"
+echo -e "Pantang Larang $creditt Shop"
+echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
+echo -e "\e[31m❌ Torrent (p2p, streaming p2p)"
+echo -e "\e[31m❌ PS4"
+echo -e "\e[31m❌ Porn"
+echo -e "\e[31m❌ Spam Bug"
+echo -e "\e[31m❌ Ddos Server"
+echo -e "\e[31m❌ Mining Bitcoins"
+echo -e "\e[31m❌ Abuse Usage"
+echo -e "\e[31m❌ Multi-Login ID"
+echo -e "\e[31m❌ Sharing Premium Config\e[m"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Script By $creditt"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link TLS       : ${vmesslink1}"
+echo -e "Link (MAXIS)   : ${export vmesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link None TLS  : ${vmesslink2}"
+echo -e "Link (CELCOM)  : ${export vmesslink2}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Yaml  : http://$MYIP:81/$user-clash-for-android.yaml"
+echo -e "Link (DIGI)     : ${export vmesslink3}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Created   : $harini"
-echo -e "Expired   : $exp"
+echo -e "Link (YES)    : ${export vmesslink4}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Created   :$harini"
+echo -e "Expired   :$exp"
+echo -e "Script By $creditt"
 echo ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu xray"
@@ -609,8 +709,8 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#vms " "/usr/local/etc/xray/vmess.json")
 			read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 		fi
 	done
-export patchtls=/jievpn-vmesswstls
-export patchnontls=/jievpn-vmesswsntls
+export patchtls=/nevermore-vmesswstls
+export patchnontls=/nevermore-vmesswsntls
 export user=$(grep -E "^#vms " "/usr/local/etc/xray/vmess.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
 export harini=$(grep -E "^#vms " "/usr/local/etc/xray/vmess.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
 export exp=$(grep -E "^#vms " "/usr/local/etc/xray/vmess.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
@@ -619,30 +719,61 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "${sts}${domain}",
+      "add": "ufuture.uitm.edu.my",
       "port": "${tls}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "$patchtls",
       "type": "none",
-      "host": "bug.com",
+      "host": "${sts}${domain}",
       "tls": "tls",
-	  "sni": "bug.com"
+	  "sni": "ufuture.uitm.edu.my"
+}
+EOF
+cat>/usr/local/etc/xray/$user-tls.json<<EOF
+      {
+      "v": "2",
+      "ps": "${user}",
+      "add": "onlinepayment.celcom.com.my",
+      "port": "${tls}",
+      "id": "${uuid}",
+      "aid": "0",
+      "net": "ws",
+      "path": "onlinepayment.celcom.com.my$patchtls",
+      "type": "none",
+      "host": "${sts}${domain}",
+      "tls": "tls",
+	  "sni": "onlinepayment.celcom.com.my"
 }
 EOF
 cat>/usr/local/etc/xray/$user-none.json<<EOF
       {
       "v": "2",
       "ps": "${user}",
-      "add": "${sts}${domain}",
+      "add": "api.useinsider.com",
       "port": "${none}",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
       "path": "$patchnontls",
       "type": "none",
-      "host": "bug.com",
+      "host": "${sts}${domain}",
+      "tls": "none"
+}
+EOF
+cat>/usr/local/etc/xray/$user-none.json<<EOF
+      {
+      "v": "2",
+      "ps": "${user}",
+      "add": "eurohealthobservatory.who.int",
+      "port": "${none}",
+      "id": "${uuid}",
+      "aid": "0",
+      "net": "ws",
+      "path": "$patchnontls",
+      "type": "none",
+      "host": "${sts}${domain}",
       "tls": "none"
 }
 EOF
@@ -737,37 +868,56 @@ cat /etc/openvpn/server/cll.key >> /usr/local/etc/xray/$user-clash-for-android.y
 cp /usr/local/etc/xray/$user-clash-for-android.yaml /home/vps/public_html/$user-clash-for-android.yaml
 export vmess_base641=$( base64 -w 0 <<< $vmess_json1)
 export vmess_base642=$( base64 -w 0 <<< $vmess_json2)
-export vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
-export vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
+export vmess_base643=$( base64 -w 0 <<< $vmess_json3)
+export vmess_base644=$( base64 -w 0 <<< $vmess_json4)
+export export vmesslink1="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+export export vmesslink2="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-tls.json)"
+export export vmesslink3="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
+export export vmesslink4="vmess://$(base64 -w 0 /usr/local/etc/xray/$user-none.json)"
 
 clear
 echo -e ""
+echo -e "\e[$line═════════[XRAY VMESS WS]═════════\e[m"
+echo -e "☢️Remarks        : ${user}"
+echo -e "☢️Created         : $harini"
+echo -e "☢️Expired         : $exp"
+echo -e "☢️Domain         : ${domain}"
+echo -e "☢️IP/Host        : $MYIP"
+echo -e "☢️Port TLS       : ${tls}"
+echo -e "☢️Port None TLS  : ${none}"
+echo -e "☢️User ID        : ${uuid}"
+echo -e "☢️Security       : Auto"
+echo -e "☢️Network        : Websocket"
+echo -e "☢️Path Tls       : $patchtls"
+echo -e "☢️Path None Tls  : $patchnontls"
+echo -e "☢️AllowInsecure  : True/Allow"
+echo -e "☢️Support Yaml   : YES"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "\e[$back_text      \e[30m[\e[$box XRAY VMESS WS\e[30m ]\e[1m          \e[m"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Remarks        : ${user}"
-echo -e "Domain         : ${domain}"
-echo -e "IP/Host        : $MYIP"
-echo -e "Port TLS       : ${tls}"
-echo -e "Port None TLS  : ${none}"
-echo -e "User ID        : ${uuid}"
-echo -e "Security       : Auto"
-echo -e "Network        : Websocket"
-echo -e "Path Tls       : $patchtls"
-echo -e "Path None Tls  : $patchnontls"
-echo -e "allowInsecure  : True/allow"
-echo -e "Support Yaml   : YES"
+echo -e "Pantang Larang $creditt Shop"
+echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
+echo -e "\e[31m❌ Torrent (p2p, streaming p2p)"
+echo -e "\e[31m❌ PS4"
+echo -e "\e[31m❌ Porn"
+echo -e "\e[31m❌ Spam Bug"
+echo -e "\e[31m❌ Ddos Server"
+echo -e "\e[31m❌ Mining Bitcoins"
+echo -e "\e[31m❌ Abuse Usage"
+echo -e "\e[31m❌ Multi-Login ID"
+echo -e "\e[31m❌ Sharing Premium Config\e[m"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Script By $creditt"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link TLS       : ${vmesslink1}"
+echo -e "Link (MAXIS)   : ${export vmesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link None TLS  : ${vmesslink2}"
+echo -e "Link (CELCOM)  : ${export vmesslink2}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Yaml  : http://$MYIP:81/$user-clash-for-android.yaml"
+echo -e "Link (DIGI)     : ${export vmesslink3}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Created   : $harini"
-echo -e "Expired   : $exp"
+echo -e "Link (YES)    : ${export vmesslink4}"
+echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Created   :$harini"
+echo -e "Expired   :$exp"
+echo -e "Script By $creditt"
 echo ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu xray"
@@ -836,8 +986,8 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 			exit 1
 		fi
 	done
-export patchtls=/jievpn-vlesswstls
-export patchnontls=/jievpn-vlesswsntls
+export patchtls=/nevermore-vlesswstls
+export patchnontls=/nevermore-vlesswsntls
 export uuid=$(cat /proc/sys/kernel/random/uuid)
 
 read -p "   Bug Address (Example: www.google.com) : " address
@@ -860,37 +1010,118 @@ sed -i '/#xray-vless-tls$/a\#vls '"$user $exp $harini $uuid"'\
 sed -i '/#xray-vless-nontls$/a\#vls '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","email": "'""$user""'"' /usr/local/etc/xray/vlessnone.json
 
-export vlesslink1="vless://${uuid}@${sts}${domain}:$tls?path=$patchtls&security=tls&encryption=none&type=ws&sni=$sni#${user}"
-export vlesslink2="vless://${uuid}@${sts}${domain}:$none?path=$patchnontls&encryption=none&host=$sni&type=ws#${user}"
+export vlesslink1="vless://${uuid}@www.unisza.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=mycampus.upnm.edu.my&host=mycampus.upnm.edu.my&security=tls&encryption=none&type=ws&sni=mycampus.upnm.edu.my#${user}"
+export vlesslink2="vless://${uuid}@www.umk.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=smpk.moe.gov.my&host=smpk.moe.gov.my&security=tls&encryption=none&type=ws&sni=smpk.moe.gov.my#${user}"
+export vlesslink3="vless://${uuid}@live.iqiyi.com.${domain}:$tls?path=/xray-vlessws-tls&sni=esports.pubgmobile.com&host=esports.pubgmobile.com&security=tls&encryption=none&type=ws&sni=esports.pubgmobile.com#${user}"
+export vlesslink4="vless://${uuid}@onlinepayment.celcom.com.my:$tls?path=GET-CDN%3Ahttp%3A%2F%2Fonlinepayment.celcom.com.my%2Fxray-vlessws-tls&sni=onlinepayment.celcom.com.my&host=${domain}&security=tls&encryption=none&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+export vlesslink5="vless://${uuid}@162.159.134.61:$none?path=/xray-vlessws-none-tls&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink6="vless://${uuid}@api.useinsider.com:$none?path=/digiapn&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink7="vless://${uuid}@eurohealthobservatory.who.int:$none?path=/yesnosub&encryption=none&host=cdn.who.int.${domain}&type=ws#${user}"
+export vlesslink8="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=maingame.com.my#${user}"
+export vlesslink9="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=mm.net.my#${user}"
+export vlesslink10="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=m.erosnow.com#${user}"
+export vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=www.pubgmobile.com#${user}"
+export vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
+export vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
+export vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 
 systemctl restart xray@vless
 systemctl restart xray@vlessnone
 
 clear
 echo -e ""
+echo -e "\e[$line═════════[XRAY VLESS WS]═════════\e[m"
+echo -e "☑️Remarks          : ${user}"
+echo -e "☑️Created          : $harini"
+echo -e "☑️Expired           : $exp"
+echo -e "☑️Domain           : ${domain}"
+echo -e "☑️IP/Host          : $MYIP"
+echo -e "☑️Port TLS         : $tls"
+echo -e "☑️Port None TLS    : $none"
+echo -e "☑️User ID          : ${uuid}"
+echo -e "☑️Encryption       : None"
+echo -e "☑️Network          : WebSocket"
+echo -e "☑️Path Tls         : $patchtls"
+echo -e "☑️Path None Tls    : $patchnontls"
+echo -e "☑️AllowInsecure    : True/Allow"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "\e[$back_text      \e[30m[\e[$box XRAY VLESS WS\e[30m ]\e[1m          \e[m"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Remarks          : ${user}"
-echo -e "Domain           : ${domain}"
-echo -e "IP/Host          : $MYIP"
-echo -e "Port TLS         : $tls"
-echo -e "Port None TLS    : $none"
-echo -e "User ID          : ${uuid}"
-echo -e "Encryption       : None"
-echo -e "Network          : WebSocket"
-echo -e "Path Tls         : $patchtls"
-echo -e "Path None Tls    : $patchnontls"
-echo -e "allowInsecure    : True/allow"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Script By $creditt"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link TLS         : ${vlesslink1}"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link None TLS    : ${vlesslink2}"
-echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Pantang Larang $creditt Shop"
+echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
+echo -e "\e[31m🚫 Torrent (p2p, streaming p2p)"
+echo -e "\e[31m🚫 PS4"
+echo -e "\e[31m🚫 Porn"
+echo -e "\e[31m🚫 Spam Bug"
+echo -e "\e[31m🚫 Ddos Server"
+echo -e "\e[31m🚫 Mining Bitcoins"
+echo -e "\e[31m🚫 Abuse Usage"
+echo -e "\e[31m🚫 Multi-Login ID"
+echo -e "\e[31m🚫 Sharing Premium Config\e[m"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e " ❤️™️ MAXIS HUNT IP-1™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink1}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "❤️™️ MAXIS HUNT IP-2 ™️ " 
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink2}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "❤️™️ MAXIS TV ™️" 
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink3}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💙 ™️ CELCOM TANPA LANGGAN ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink4}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💛 ™️ DIGI BOOSTER ™️"
+echo -e "\e[$line════════════════════════\e[m"
+echo     " $export {vlesslink5}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💛™️ DIGI APN ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink6}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💗™️ YESS NO SUB ™️"
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink7}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-1™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink8}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-2 ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink9}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-3 ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink10}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💚 ™️  PUBG GAME ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink11}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "🖤 ™️ YOODO ML GAME ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink12}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "💙💗🧡 ™️ CELCOM/TUNETALK/YODOO
+BYPASS SPEED CAPP ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink13}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "💜 ™️ UNIFI ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink14}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e " ❤️™️ MAXIS UNLIMITED™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink15}"
+echo -e "\e[$line════════════════════════\e[m"
 echo -e "Created   : $harini"
 echo -e "Expired   : $exp"
+echo -e "Script By JIEVPN"
 echo ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu xray"
@@ -913,8 +1144,8 @@ export exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
 # Make Random Username 
 export user=Trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
 
-export patchtls=/jievpn-vlesswstls
-export patchnontls=/jievpn-vlesswsntls
+export patchtls=/nevermore-vlesswstls
+export patchnontls=/nevermore-vlesswsntls
 export uuid=$(cat /proc/sys/kernel/random/uuid)
 
 read -p "   Bug Address (Example: www.google.com) : " address
@@ -935,37 +1166,119 @@ sed -i '/#xray-vless-tls$/a\#vls '"$user $exp $harini $uuid"'\
 sed -i '/#xray-vless-nontls$/a\#vls '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","email": "'""$user""'"' /usr/local/etc/xray/vlessnone.json
 
-export vlesslink1="vless://${uuid}@${sts}${domain}:$tls?path=$patchtls&security=tls&encryption=none&type=ws&sni=$sni#${user}"
-export vlesslink2="vless://${uuid}@${sts}${domain}:$none?path=$patchnontls&encryption=none&host=$sni&type=ws#${user}"
+export vlesslink1="vless://${uuid}@www.unisza.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=mycampus.upnm.edu.my&host=mycampus.upnm.edu.my&security=tls&encryption=none&type=ws&sni=mycampus.upnm.edu.my#${user}"
+export vlesslink2="vless://${uuid}@www.umk.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=smpk.moe.gov.my&host=smpk.moe.gov.my&security=tls&encryption=none&type=ws&sni=smpk.moe.gov.my#${user}"
+export vlesslink3="vless://${uuid}@live.iqiyi.com.${domain}:$tls?path=/xray-vlessws-tls&sni=esports.pubgmobile.com&host=esports.pubgmobile.com&security=tls&encryption=none&type=ws&sni=esports.pubgmobile.com#${user}"
+export vlesslink4="vless://${uuid}@onlinepayment.celcom.com.my:$tls?path=GET-CDN%3Ahttp%3A%2F%2Fonlinepayment.celcom.com.my%2Fxray-vlessws-tls&sni=onlinepayment.celcom.com.my&host=${domain}&security=tls&encryption=none&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+export vlesslink5="vless://${uuid}@162.159.134.61:$none?path=/xray-vlessws-none-tls&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink6="vless://${uuid}@api.useinsider.com:$none?path=/digiapn&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink7="vless://${uuid}@eurohealthobservatory.who.int:$none?path=/yesnosub&encryption=none&host=cdn.who.int.${domain}&type=ws#${user}"
+export vlesslink8="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=maingame.com.my#${user}"
+export vlesslink9="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=mm.net.my#${user}"
+export vlesslink10="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=m.erosnow.com#${user}"
+export vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=www.pubgmobile.com#${user}"
+export vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
+export vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
+export vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 
 systemctl restart xray@vless
 systemctl restart xray@vlessnone
 
 clear
 echo -e ""
+echo -e ""
+echo -e "\e[$line═════════[XRAY VLESS WS]═════════\e[m"
+echo -e "☑️Remarks          : ${user}"
+echo -e "☑️Created          : $harini"
+echo -e "☑️Expired           : $exp"
+echo -e "☑️Domain           : ${domain}"
+echo -e "☑️IP/Host          : $MYIP"
+echo -e "☑️Port TLS         : $tls"
+echo -e "☑️Port None TLS    : $none"
+echo -e "☑️User ID          : ${uuid}"
+echo -e "☑️Encryption       : None"
+echo -e "☑️Network          : WebSocket"
+echo -e "☑️Path Tls         : $patchtls"
+echo -e "☑️Path None Tls    : $patchnontls"
+echo -e "☑️AllowInsecure    : True/Allow"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "\e[$back_text     \e[30m[\e[$box TRIAL XRAY VLESS WS\e[30m ]\e[1m     \e[m"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Remarks          : ${user}"
-echo -e "Domain           : ${domain}"
-echo -e "IP/Host          : $MYIP"
-echo -e "Port TLS         : $tls"
-echo -e "Port None TLS    : $none"
-echo -e "User ID          : ${uuid}"
-echo -e "Encryption       : None"
-echo -e "Network          : WebSocket"
-echo -e "Path Tls         : $patchtls"
-echo -e "Path None Tls    : $patchnontls"
-echo -e "allowInsecure    : True/allow"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Script By $creditt"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link TLS         : ${vlesslink1}"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link None TLS    : ${vlesslink2}"
-echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Pantang Larang $creditt Shop"
+echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
+echo -e "\e[31m🚫 Torrent (p2p, streaming p2p)"
+echo -e "\e[31m🚫 PS4"
+echo -e "\e[31m🚫 Porn"
+echo -e "\e[31m🚫 Spam Bug"
+echo -e "\e[31m🚫 Ddos Server"
+echo -e "\e[31m🚫 Mining Bitcoins"
+echo -e "\e[31m🚫 Abuse Usage"
+echo -e "\e[31m🚫 Multi-Login ID"
+echo -e "\e[31m🚫 Sharing Premium Config\e[m"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e " ❤️™️ MAXIS HUNT IP-1™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink1}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "❤️™️ MAXIS HUNT IP-2 ™️ " 
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink2}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "❤️™️ MAXIS TV ™️" 
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink3}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💙 ™️ CELCOM TANPA LANGGAN ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink4}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💛 ™️ DIGI BOOSTER ™️"
+echo -e "\e[$line════════════════════════\e[m"
+echo     " $export {vlesslink5}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💛™️ DIGI APN ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink6}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💗™️ YESS NO SUB ™️"
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink7}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-1™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink8}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-2 ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink9}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-3 ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink10}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💚 ™️  PUBG GAME ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink11}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "🖤 ™️ YOODO ML GAME ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink12}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "💙💗🧡 ™️ CELCOM/TUNETALK/YODOO
+BYPASS SPEED CAPP ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink13}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "💜 ™️ UNIFI ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink14}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e " ❤️™️ MAXIS UNLIMITED™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink15}"
+echo -e "\e[$line════════════════════════\e[m"
 echo -e "Created   : $harini"
 echo -e "Expired   : $exp"
+echo -e "Script By JIEVPN"
 echo ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu xray"
@@ -1100,41 +1413,122 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#vls " "/usr/local/etc/xray/vless.json")
 			read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 		fi
 	done
-export patchtls=/jievpn-vlesswstls
-export patchnontls=/jievpn-vlesswsntls
+export patchtls=/nevermore-vlesswstls
+export patchnontls=/nevermore-vlesswsntls
 export user=$(grep -E "^#vls " "/usr/local/etc/xray/vless.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
 export harini=$(grep -E "^#vls " "/usr/local/etc/xray/vless.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
 export exp=$(grep -E "^#vls " "/usr/local/etc/xray/vless.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 export uuid=$(grep -E "^#vls " "/usr/local/etc/xray/vless.json" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
 
-export vlesslink1="vless://${uuid}@${sts}${domain}:$tls?path=$patchtls&security=tls&encryption=none&type=ws&sni=$sni#${user}"
-export vlesslink2="vless://${uuid}@${sts}${domain}:$none?path=$patchnontls&encryption=none&host=$sni&type=ws#${user}"
+export vlesslink1="vless://${uuid}@www.unisza.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=mycampus.upnm.edu.my&host=mycampus.upnm.edu.my&security=tls&encryption=none&type=ws&sni=mycampus.upnm.edu.my#${user}"
+export vlesslink2="vless://${uuid}@www.umk.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=smpk.moe.gov.my&host=smpk.moe.gov.my&security=tls&encryption=none&type=ws&sni=smpk.moe.gov.my#${user}"
+export vlesslink3="vless://${uuid}@live.iqiyi.com.${domain}:$tls?path=/xray-vlessws-tls&sni=esports.pubgmobile.com&host=esports.pubgmobile.com&security=tls&encryption=none&type=ws&sni=esports.pubgmobile.com#${user}"
+export vlesslink4="vless://${uuid}@onlinepayment.celcom.com.my:$tls?path=GET-CDN%3Ahttp%3A%2F%2Fonlinepayment.celcom.com.my%2Fxray-vlessws-tls&sni=onlinepayment.celcom.com.my&host=${domain}&security=tls&encryption=none&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+export vlesslink5="vless://${uuid}@162.159.134.61:$none?path=/xray-vlessws-none-tls&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink6="vless://${uuid}@api.useinsider.com:$none?path=/digiapn&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink7="vless://${uuid}@eurohealthobservatory.who.int:$none?path=/yesnosub&encryption=none&host=cdn.who.int.${domain}&type=ws#${user}"
+export vlesslink8="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=maingame.com.my#${user}"
+export vlesslink9="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=mm.net.my#${user}"
+export vlesslink10="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=m.erosnow.com#${user}"
+export vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=www.pubgmobile.com#${user}"
+export vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
+export vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
+export vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 
 clear
 echo -e ""
+echo -e "\e[$line═════════[XRAY VLESS WS]═════════\e[m"
+echo -e "☑️Remarks          : ${user}"
+echo -e "☑️Created          : $harini"
+echo -e "☑️Expired           : $exp"
+echo -e "☑️Domain           : ${domain}"
+echo -e "☑️IP/Host          : $MYIP"
+echo -e "☑️Port TLS         : $tls"
+echo -e "☑️Port None TLS    : $none"
+echo -e "☑️User ID          : ${uuid}"
+echo -e "☑️Encryption       : None"
+echo -e "☑️Network          : WebSocket"
+echo -e "☑️Path Tls         : $patchtls"
+echo -e "☑️Path None Tls    : $patchnontls"
+echo -e "☑️AllowInsecure    : True/Allow"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "\e[$back_text      \e[30m[\e[$box XRAY VLESS WS\e[30m ]\e[1m          \e[m"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Remarks          : ${user}"
-echo -e "Domain           : ${domain}"
-echo -e "IP/Host          : $MYIP"
-echo -e "Port TLS         : $tls"
-echo -e "Port None TLS    : $none"
-echo -e "User ID          : ${uuid}"
-echo -e "Encryption       : None"
-echo -e "Network          : WebSocket"
-echo -e "Path Tls         : $patchtls"
-echo -e "Path None Tls    : $patchnontls"
-echo -e "allowInsecure    : True/allow"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Script By $creditt"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link TLS         : ${vlesslink1}"
-echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link None TLS    : ${vlesslink2}"
-echo -e "\e[$line═════════════════════════════════\e[m"
+echo -e "Pantang Larang $creditt Shop"
+echo -e "‼️Aktiviti Berikut Adalah Dilarang(ID akan di ban tanpa notis & tiada refund)"
+echo -e "\e[31m🚫 Torrent (p2p, streaming p2p)"
+echo -e "\e[31m🚫 PS4"
+echo -e "\e[31m🚫 Porn"
+echo -e "\e[31m🚫 Spam Bug"
+echo -e "\e[31m🚫 Ddos Server"
+echo -e "\e[31m🚫 Mining Bitcoins"
+echo -e "\e[31m🚫 Abuse Usage"
+echo -e "\e[31m🚫 Multi-Login ID"
+echo -e "\e[31m🚫 Sharing Premium Config\e[m"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e " ❤️™️ MAXIS HUNT IP-1™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink1}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "❤️™️ MAXIS HUNT IP-2 ™️ " 
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink2}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "❤️™️ MAXIS TV ™️" 
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink3}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💙 ™️ CELCOM TANPA LANGGAN ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink4}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💛 ™️ DIGI BOOSTER ™️"
+echo -e "\e[$line════════════════════════\e[m"
+echo     " $export {vlesslink5}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💛™️ DIGI APN ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink6}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💗™️ YESS NO SUB ™️"
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink7}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-1™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink8}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-2 ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink9}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "🧡™️ UMOBILE NO SUB-3 ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink10}"
+echo -e "\e[$line════════════════════════\e[m"
+echo -e "💚 ™️  PUBG GAME ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink11}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "🖤 ™️ YOODO ML GAME ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink12}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "💙💗🧡 ™️ CELCOM/TUNETALK/YODOO
+BYPASS SPEED CAPP ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink13}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e "💜 ™️ UNIFI ™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink14}"
+echo -e "\e[$line═══════════════════════\e[m"
+echo -e " ❤️™️ MAXIS UNLIMITED™️ "
+echo -e "\e[$line════════════════════════\e[m"
+echo     " ${export vlesslink15}"
+echo -e "\e[$line════════════════════════\e[m"
 echo -e "Created   : $harini"
 echo -e "Expired   : $exp"
+echo -e "Script By JIEVPN"
 echo ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu xray"
@@ -1221,8 +1615,8 @@ export harini=`date -d "0 days" +"%Y-%m-%d"`
 sed -i '/#xray-vless-xtls$/a\#vxtls '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","flow": "'""xtls-rprx-direct""'","level": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 
-export vlesslink1="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=$sni#${user}"
-export vlesslink2="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=$sni#${user}"
+export export vlesslink1="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=$sni#${user}"
+export export vlesslink2="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=$sni#${user}"
 
 systemctl restart xray.service
 
@@ -1243,9 +1637,9 @@ echo -e "allowInsecure  : True"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Script By $creditt"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Xtls Direct  : ${vlesslink1}"
+echo -e "Link Xtls Direct  : ${export vlesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Xtls Splice  : ${vlesslink2}"
+echo -e "Link Xtls Splice  : ${export vlesslink2}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Created  : $harini"
 echo -e "Expired  : $exp"
@@ -1287,8 +1681,21 @@ export harini=`date -d "0 days" +"%Y-%m-%d"`
 sed -i '/#xray-vless-xtls$/a\#vxtls '"$user $exp $harini $uuid"'\
 },{"id": "'""$uuid""'","flow": "'""xtls-rprx-direct""'","level": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 
-export vlesslink1="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=$sni#${user}"
-export vlesslink2="vless://${uuid}@${sts}${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=$sni#${user}"
+export vlesslink1="vless://${uuid}@www.unisza.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=mycampus.upnm.edu.my&host=mycampus.upnm.edu.my&security=tls&encryption=none&type=ws&sni=mycampus.upnm.edu.my#${user}"
+export vlesslink2="vless://${uuid}@www.umk.edu.my.${domain}:$tls?path=/xray-vlessws-tls&sni=smpk.moe.gov.my&host=smpk.moe.gov.my&security=tls&encryption=none&type=ws&sni=smpk.moe.gov.my#${user}"
+export vlesslink3="vless://${uuid}@live.iqiyi.com.${domain}:$tls?path=/xray-vlessws-tls&sni=esports.pubgmobile.com&host=esports.pubgmobile.com&security=tls&encryption=none&type=ws&sni=esports.pubgmobile.com#${user}"
+export vlesslink4="vless://${uuid}@onlinepayment.celcom.com.my:$tls?path=GET-CDN%3Ahttp%3A%2F%2Fonlinepayment.celcom.com.my%2Fxray-vlessws-tls&sni=onlinepayment.celcom.com.my&host=${domain}&security=tls&encryption=none&type=ws&sni=onlinepayment.celcom.com.my#${user}"
+export vlesslink5="vless://${uuid}@162.159.134.61:$none?path=/xray-vlessws-none-tls&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink6="vless://${uuid}@api.useinsider.com:$none?path=/digiapn&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink7="vless://${uuid}@eurohealthobservatory.who.int:$none?path=/yesnosub&encryption=none&host=cdn.who.int.${domain}&type=ws#${user}"
+export vlesslink8="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=maingame.com.my#${user}"
+export vlesslink9="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=mm.net.my#${user}"
+export vlesslink10="vless://${uuid}@${sts}${MYIP}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=m.erosnow.com#${user}"
+export vlesslink11="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=www.pubgmobile.com#${user}"
+export vlesslink12="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&sni=play.mobilelegends.com&host=play.mobilelegends.com&security=tls&encryption=none&type=ws&sni=play.mobilelegends.com#${user}"
+export vlesslink13="vless://${uuid}@www.speedtest.net:$none?path=/allbypass&encryption=none&host=${domain}&type=ws#${user}"
+export vlesslink14="vless://${uuid}@${domain}:$tls?path=/xray-vlessws-tls&security=tls&encryption=none&type=ws&sni=ecommerce.unifi.com.my#${user}"
+export vlesslink15="vless://${uuid}@api-faceid.maxis.com.my.${domain}:$tls?path=/xray-vlessws-tls&host=${domain}&security=tls&encryption=none&type=ws&sni=www.mosti.gov.my#${user}"
 
 systemctl restart xray.service
 
@@ -1309,9 +1716,9 @@ echo -e "allowInsecure  : True"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Script By $creditt"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Xtls Direct  : ${vlesslink1}"
+echo -e "Link Xtls Direct  : ${export vlesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Xtls Splice  : ${vlesslink2}"
+echo -e "Link Xtls Splice  : ${export vlesslink2}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Created  : $harini"
 echo -e "Expired  : $exp"
@@ -1451,8 +1858,8 @@ export harini=$(grep -E "^#vxtls " "/usr/local/etc/xray/config.json" | cut -d ' 
 export exp=$(grep -E "^#vxtls " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 export uuid=$(grep -E "^#vxtls " "/usr/local/etc/xray/config.json" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
 
-export vlesslink1="vless://${uuid}@${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=bug.com#${user}"
-export vlesslink2="vless://${uuid}@${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=bug.com#${user}"
+export export vlesslink1="vless://${uuid}@${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=bug.com#${user}"
+export export vlesslink2="vless://${uuid}@${domain}:$xtls?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=bug.com#${user}"
 
 clear
 echo -e ""
@@ -1471,9 +1878,9 @@ echo -e "allowInsecure    : True"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Script By $creditt"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Xtls Direct : ${vlesslink1}"
+echo -e "Link Xtls Direct : ${export vlesslink1}"
 echo -e "\e[$line═════════════════════════════════\e[m"
-echo -e "Link Xtls Splice : ${vlesslink2}"
+echo -e "Link Xtls Splice : ${export vlesslink2}"
 echo -e "\e[$line═════════════════════════════════\e[m"
 echo -e "Created    : $harini"
 echo -e "Expired    : $exp"
