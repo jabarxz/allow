@@ -12,9 +12,9 @@ resolvconf -u
 ```
 # ✔️ SCRIPT INSTALL ACC VLESS✔️
 ```
-wget -q -O /usr/bin/vpn "https://raw.githubusercontent.com/jabarxz/allow/main/acc.sh" && chmod +x /usr/bin/vpn && apt install make && apt install gcc && apt install shc
+wget -q -O /usr/bin/vpn "https://raw.githubusercontent.com/jabarxz/allow/main/scbugg.sh" && chmod +x /usr/bin/vpn && apt install make && apt install gcc && apt install shc
 ```
 # ✔️ UPDATE ACC VLESS ✔️
 ```
-rm -f /usr/bin/vpn && wget -q -O /usr/bin/vpn "https://raw.githubusercontent.com/jabarxz/allow/main/acc.sh" && chmod +x /usr/bin/vpn && apt install make && apt install gcc && apt install shc
+rm -f /usr/bin/vpn && wget -q -O /usr/bin/vpn "https://raw.githubusercontent.com/jabarxz/allow/main/scbugg.sh" && chmod +x /usr/bin/vpn && apt install make && apt install gcc && apt install shc
 ```
